@@ -10,7 +10,7 @@ Route::view('dashboard', 'dashboard')
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
-    ->name('profile');
+    ->name('profile.edit');
 
 // Library Management Routes  
 Route::middleware(['auth'])->group(function () {
