@@ -203,6 +203,20 @@ Auteurs inclus : Victor Hugo, Gustave Flaubert, Marcel Proust, Albert Camus, Sim
 ✅ **Modélisation** - Relations One-to-Many correctes  
 ✅ **Validation** - Règles métier et validation des données  
 
+## 📚 Apprentissages et défis
+
+### Défis techniques rencontrés :
+- **Relations Eloquent** - Optimisation des requêtes avec eager loading
+- **Validation métier** - Empêcher la suppression d'auteurs avec des livres
+- **Tests API** - Couverture complète des cas limites et erreurs
+- **Sécurité** - Séparation lecture publique / écriture authentifiée
+
+### Points d'amélioration identifiés :
+- Mise en cache des requêtes fréquentes
+- Logs détaillés pour le debugging
+- Optimisation des performances sur de gros datasets
+- Gestion plus fine des permissions utilisateurs
+
 ## 📞 Support
 
 Pour toute question :
