@@ -6,8 +6,11 @@ namespace Tests\Feature;
 
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class BookApiTest extends TestCase
@@ -18,6 +21,9 @@ class BookApiTest extends TestCase
     {
         parent::setUp();
         
+        // Créer un utilisateur pour l'authentification
+        $this->user = User::factory()->create();
+        
         // Créer des auteurs pour les tests
         $this->authors = Author::factory(3)->create();
         
@@ -27,8 +33,8 @@ class BookApiTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function it_can_list_all_books()
+    #[Test]
+    public function it_can_list_all_books(): void
     {
         $response = $this->getJson('/api/books');
 
@@ -56,8 +62,8 @@ class BookApiTest extends TestCase
                 ->assertJsonCount(5, 'data');
     }
 
-    /** @test */
-    public function it_can_show_a_specific_book()
+    #[Test]
+    public function it_can_show_a_specific_book(): void
     {
         $book = $this->books->first();
 
@@ -79,9 +85,11 @@ class BookApiTest extends TestCase
                 ]);
     }
 
-    /** @test */
-    public function it_can_create_a_new_book()
+    #[Test]
+    public function it_can_create_a_new_book(): void
     {
+        
+        
         $bookData = [
             'title' => $this->faker->sentence(3),
             'price' => $this->faker->randomFloat(2, 10, 100),
@@ -89,7 +97,7 @@ class BookApiTest extends TestCase
             'author_id' => $this->authors->first()->id,
         ];
 
-        $response = $this->postJson('/api/books', $bookData);
+        $response = $this->actingAs($this->user)->postJson('/api/books', $bookData);
 
         $response->assertCreated()
                 ->assertJson([
@@ -112,7 +120,9 @@ class BookApiTest extends TestCase
     /** @test */
     public function it_validates_required_fields_when_creating_book()
     {
-        $response = $this->postJson('/api/books', []);
+        
+        
+        $response = $this->actingAs($this->user)->postJson('/api/books', []);
 
         $response->assertUnprocessable()
                 ->assertJsonValidationErrors(['title', 'price', 'publication_date', 'author_id']);
@@ -128,7 +138,7 @@ class BookApiTest extends TestCase
             'author_id' => $this->authors->first()->id,
         ];
 
-        $response = $this->postJson('/api/books', $bookData);
+        $response = $this->actingAs($this->user)->postJson('/api/books', $bookData);
 
         $response->assertUnprocessable()
                 ->assertJsonValidationErrors(['title']);
@@ -145,13 +155,13 @@ class BookApiTest extends TestCase
             'author_id' => $this->authors->first()->id,
         ];
 
-        $response = $this->postJson('/api/books', $bookData);
+        $response = $this->actingAs($this->user)->postJson('/api/books', $bookData);
         $response->assertUnprocessable()
                 ->assertJsonValidationErrors(['price']);
 
         // Test prix non numérique
         $bookData['price'] = 'not-a-number';
-        $response = $this->postJson('/api/books', $bookData);
+        $response = $this->actingAs($this->user)->postJson('/api/books', $bookData);
         $response->assertUnprocessable()
                 ->assertJsonValidationErrors(['price']);
     }
@@ -166,7 +176,7 @@ class BookApiTest extends TestCase
             'author_id' => $this->authors->first()->id,
         ];
 
-        $response = $this->postJson('/api/books', $bookData);
+        $response = $this->actingAs($this->user)->postJson('/api/books', $bookData);
 
         $response->assertUnprocessable()
                 ->assertJsonValidationErrors(['publication_date']);
@@ -182,15 +192,17 @@ class BookApiTest extends TestCase
             'author_id' => 9999, // ID inexistant
         ];
 
-        $response = $this->postJson('/api/books', $bookData);
+        $response = $this->actingAs($this->user)->postJson('/api/books', $bookData);
 
         $response->assertUnprocessable()
                 ->assertJsonValidationErrors(['author_id']);
     }
 
-    /** @test */
-    public function it_can_update_an_existing_book()
+    #[Test]
+    public function it_can_update_an_existing_book(): void
     {
+        
+        
         $book = $this->books->first();
         $newAuthor = $this->authors->last();
         
@@ -201,7 +213,7 @@ class BookApiTest extends TestCase
             'author_id' => $newAuthor->id,
         ];
 
-        $response = $this->putJson("/api/books/{$book->id}", $updateData);
+        $response = $this->actingAs($this->user)->putJson("/api/books/{$book->id}", $updateData);
 
         $response->assertOk()
                 ->assertJson([
@@ -229,7 +241,7 @@ class BookApiTest extends TestCase
         $book = $this->books->first();
         $originalTitle = $book->title;
 
-        $response = $this->putJson("/api/books/{$book->id}", [
+        $response = $this->actingAs($this->user)->putJson("/api/books/{$book->id}", [
             'price' => 99.99,
         ]);
 
@@ -246,7 +258,7 @@ class BookApiTest extends TestCase
     /** @test */
     public function it_returns_404_when_updating_non_existent_book()
     {
-        $response = $this->putJson('/api/books/999', [
+        $response = $this->actingAs($this->user)->putJson('/api/books/999', [
             'title' => 'Test',
             'price' => 29.99,
         ]);
@@ -259,7 +271,7 @@ class BookApiTest extends TestCase
     {
         $book = $this->books->first();
 
-        $response = $this->deleteJson("/api/books/{$book->id}");
+        $response = $this->actingAs($this->user)->deleteJson("/api/books/{$book->id}");
 
         $response->assertOk()
                 ->assertJson([
@@ -272,7 +284,7 @@ class BookApiTest extends TestCase
     /** @test */
     public function it_returns_404_when_deleting_non_existent_book()
     {
-        $response = $this->deleteJson('/api/books/999');
+        $response = $this->actingAs($this->user)->deleteJson('/api/books/999');
 
         $response->assertNotFound();
     }

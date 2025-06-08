@@ -82,7 +82,7 @@ class BookResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'price' => $this->price,
-            'publication_date' => $this->publication_date,
+            'publication_date' => $this->publication_date->format('Y-m-d'),
             'author_id' => $this->author_id,
             'author' => new AuthorResource($this->whenLoaded('author')),
             'created_at' => $this->created_at,

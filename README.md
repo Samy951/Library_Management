@@ -6,12 +6,13 @@ Système de gestion de bibliothèque développé avec Laravel 12 et Livewire. Ap
 
 ### 🔧 Backend & API
 - **API REST complète** avec endpoints CRUD pour auteurs et livres
+- **Sécurité API** - Lecture publique, écriture authentifiée
 - **Documentation interactive Swagger/OpenAPI** accessible via l'interface web
 - **Validation robuste** avec messages d'erreur en français
 - **Recherche et filtrage avancés** (nom d'auteur, titre, prix, date)
 - **Pagination et tri** sur tous les endpoints
 - **Relations Eloquent** optimisées (One-to-Many)
-- **Tests complets** (36 tests couvrant toute l'API)
+- **Tests complets** (46 tests couvrant API et sécurité)
 
 ### 🎨 Frontend & Interface
 - **Interface web moderne** avec Tailwind CSS et Alpine.js
@@ -78,25 +79,26 @@ php artisan test --filter="AuthorApiTest|BookApiTest"
 php artisan test --coverage
 ```
 
-**Couverture actuelle** : 36 tests passants
+**Couverture actuelle** : 46 tests passants
 - 16 tests AuthorApiTest (CRUD, validation, recherche, règles métier)
 - 20 tests BookApiTest (CRUD, validation, filtres, tri, pagination)
+- 10 tests ApiSecurityTest (authentification, autorisation)
 
 ## 📋 Endpoints API principaux
 
 ### Auteurs
-- `GET /api/authors` - Liste avec recherche et tri
-- `POST /api/authors` - Créer un auteur
-- `GET /api/authors/{id}` - Détails d'un auteur
-- `PUT /api/authors/{id}` - Mettre à jour
-- `DELETE /api/authors/{id}` - Supprimer (si aucun livre)
+- `GET /api/authors` - Liste avec recherche et tri (🌐 public)
+- `POST /api/authors` - Créer un auteur (🔒 auth requise)
+- `GET /api/authors/{id}` - Détails d'un auteur (🌐 public)
+- `PUT /api/authors/{id}` - Mettre à jour (🔒 auth requise)
+- `DELETE /api/authors/{id}` - Supprimer si aucun livre (🔒 auth requise)
 
 ### Livres
-- `GET /api/books` - Liste avec filtres avancés
-- `POST /api/books` - Créer un livre
-- `GET /api/books/{id}` - Détails d'un livre
-- `PUT /api/books/{id}` - Mettre à jour
-- `DELETE /api/books/{id}` - Supprimer
+- `GET /api/books` - Liste avec filtres avancés (🌐 public)
+- `POST /api/books` - Créer un livre (🔒 auth requise)
+- `GET /api/books/{id}` - Détails d'un livre (🌐 public)
+- `PUT /api/books/{id}` - Mettre à jour (🔒 auth requise)
+- `DELETE /api/books/{id}` - Supprimer (🔒 auth requise)
 
 ## 🔍 Exemples d'utilisation
 

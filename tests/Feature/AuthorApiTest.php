@@ -6,8 +6,11 @@ namespace Tests\Feature;
 
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class AuthorApiTest extends TestCase
@@ -18,6 +21,9 @@ class AuthorApiTest extends TestCase
     {
         parent::setUp();
         
+        // Créer un utilisateur pour l'authentification
+        $this->user = User::factory()->create();
+        
         // Créer quelques auteurs de test
         $this->authors = Author::factory(5)->create();
         
@@ -25,8 +31,8 @@ class AuthorApiTest extends TestCase
         Book::factory(3)->create(['author_id' => $this->authors->first()->id]);
     }
 
-    /** @test */
-    public function it_can_list_all_authors()
+    #[Test]
+    public function it_can_list_all_authors(): void
     {
         $response = $this->getJson('/api/authors');
 
@@ -71,12 +77,14 @@ class AuthorApiTest extends TestCase
     /** @test */
     public function it_can_create_a_new_author()
     {
+        
+        
         $authorData = [
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
         ];
 
-        $response = $this->postJson('/api/authors', $authorData);
+        $response = $this->actingAs($this->user)->postJson('/api/authors', $authorData);
 
         $response->assertCreated()
                 ->assertJson([
@@ -93,7 +101,9 @@ class AuthorApiTest extends TestCase
     /** @test */
     public function it_validates_required_fields_when_creating_author()
     {
-        $response = $this->postJson('/api/authors', []);
+        
+        
+        $response = $this->actingAs($this->user)->postJson('/api/authors', []);
 
         $response->assertUnprocessable()
                 ->assertJsonValidationErrors(['first_name', 'last_name']);
@@ -102,12 +112,14 @@ class AuthorApiTest extends TestCase
     /** @test */
     public function it_validates_first_name_max_length()
     {
+        
+        
         $authorData = [
             'first_name' => str_repeat('a', 256), // > 255 caractères
             'last_name' => $this->faker->lastName,
         ];
 
-        $response = $this->postJson('/api/authors', $authorData);
+        $response = $this->actingAs($this->user)->postJson('/api/authors', $authorData);
 
         $response->assertUnprocessable()
                 ->assertJsonValidationErrors(['first_name']);
@@ -116,12 +128,14 @@ class AuthorApiTest extends TestCase
     /** @test */
     public function it_validates_last_name_max_length()
     {
+        
+        
         $authorData = [
             'first_name' => $this->faker->firstName,
             'last_name' => str_repeat('a', 256), // > 255 caractères
         ];
 
-        $response = $this->postJson('/api/authors', $authorData);
+        $response = $this->actingAs($this->user)->postJson('/api/authors', $authorData);
 
         $response->assertUnprocessable()
                 ->assertJsonValidationErrors(['last_name']);
@@ -130,13 +144,15 @@ class AuthorApiTest extends TestCase
     /** @test */
     public function it_can_update_an_existing_author()
     {
+        
+        
         $author = $this->authors->first();
         $updateData = [
             'first_name' => 'Nouveau Prénom',
             'last_name' => 'Nouveau Nom',
         ];
 
-        $response = $this->putJson("/api/authors/{$author->id}", $updateData);
+        $response = $this->actingAs($this->user)->putJson("/api/authors/{$author->id}", $updateData);
 
         $response->assertOk()
                 ->assertJson([
@@ -154,10 +170,12 @@ class AuthorApiTest extends TestCase
     /** @test */
     public function it_can_partially_update_an_author()
     {
+        
+        
         $author = $this->authors->first();
         $originalFirstName = $author->first_name;
 
-        $response = $this->putJson("/api/authors/{$author->id}", [
+        $response = $this->actingAs($this->user)->putJson("/api/authors/{$author->id}", [
             'last_name' => 'Nouveau Nom Seulement',
         ]);
 
@@ -174,7 +192,9 @@ class AuthorApiTest extends TestCase
     /** @test */
     public function it_returns_404_when_updating_non_existent_author()
     {
-        $response = $this->putJson('/api/authors/999', [
+        
+        
+        $response = $this->actingAs($this->user)->putJson('/api/authors/999', [
             'first_name' => 'Test',
             'last_name' => 'Test',
         ]);
@@ -185,9 +205,11 @@ class AuthorApiTest extends TestCase
     /** @test */
     public function it_can_delete_an_author_without_books()
     {
+        
+        
         $authorWithoutBooks = Author::factory()->create();
 
-        $response = $this->deleteJson("/api/authors/{$authorWithoutBooks->id}");
+        $response = $this->actingAs($this->user)->deleteJson("/api/authors/{$authorWithoutBooks->id}");
 
         $response->assertOk()
                 ->assertJson([
@@ -200,6 +222,8 @@ class AuthorApiTest extends TestCase
     /** @test */
     public function it_cannot_delete_an_author_with_books()
     {
+        
+        
         $authorWithBooks = $this->authors->first(); // A 3 livres
         
         // Debug - Vérifier que l'auteur existe bien en base
@@ -209,7 +233,7 @@ class AuthorApiTest extends TestCase
         $booksCount = $authorWithBooks->books()->count();
         $this->assertTrue($booksCount > 0, "L'auteur devrait avoir des livres mais en a $booksCount");
 
-        $response = $this->deleteJson("/api/authors/{$authorWithBooks->id}");
+        $response = $this->actingAs($this->user)->deleteJson("/api/authors/{$authorWithBooks->id}");
 
         $response->assertUnprocessable()
                 ->assertJson([
@@ -223,7 +247,9 @@ class AuthorApiTest extends TestCase
     /** @test */
     public function it_returns_404_when_deleting_non_existent_author()
     {
-        $response = $this->deleteJson('/api/authors/999');
+        
+        
+        $response = $this->actingAs($this->user)->deleteJson('/api/authors/999');
 
         $response->assertNotFound();
     }
