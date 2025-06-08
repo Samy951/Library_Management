@@ -1,5 +1,5 @@
 <div>
-    <!-- Search and Filters -->
+    <!-- Search and Actions -->
     <div class="mb-6 flex flex-col sm:flex-row gap-4">
         <div class="flex-1">
             <input 
@@ -9,6 +9,10 @@
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             >
         </div>
+        <a href="{{ route('authors.create') }}" 
+           class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+            + Nouvel auteur
+        </a>
     </div>
 
     <!-- Flash Messages -->
@@ -30,14 +34,14 @@
             <thead class="bg-gray-50">
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" 
-                        wire:click="sortBy('first_name')">
+                        wire:click="sortByField('first_name')">
                         Prénom
                         @if($sortBy === 'first_name')
                             <span class="ml-1">{{ $sortDirection === 'asc' ? '↑' : '↓' }}</span>
                         @endif
                     </th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" 
-                        wire:click="sortBy('last_name')">
+                        wire:click="sortByField('last_name')">
                         Nom
                         @if($sortBy === 'last_name')
                             <span class="ml-1">{{ $sortDirection === 'asc' ? '↑' : '↓' }}</span>
@@ -47,7 +51,7 @@
                         Nombre de livres
                     </th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" 
-                        wire:click="sortBy('created_at')">
+                        wire:click="sortByField('created_at')">
                         Créé le
                         @if($sortBy === 'created_at')
                             <span class="ml-1">{{ $sortDirection === 'asc' ? '↑' : '↓' }}</span>
@@ -77,9 +81,9 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="flex justify-end space-x-2">
-                                <button class="text-blue-600 hover:text-blue-900 text-sm">
+                                <a href="{{ route('authors.edit', $author) }}" class="text-blue-600 hover:text-blue-900 text-sm">
                                     Modifier
-                                </button>
+                                </a>
                                 @if($author->books_count === 0)
                                     <button 
                                         wire:click="deleteAuthor({{ $author->id }})" 
