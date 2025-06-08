@@ -16,7 +16,70 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 class BookController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/books",
+     *     tags={"Books"},
+     *     summary="Liste des livres",
+     *     description="Récupère la liste paginée des livres avec recherche, filtres et tri",
+     *     @OA\Parameter(
+     *         name="search",
+     *         in="query",
+     *         description="Recherche dans titre ou nom d'auteur",
+     *         required=false,
+     *         @OA\Schema(type="string", example="Misérables")
+     *     ),
+     *     @OA\Parameter(
+     *         name="author_id", 
+     *         in="query",
+     *         description="Filtrer par ID d'auteur",
+     *         required=false,
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
+     *     @OA\Parameter(
+     *         name="min_price",
+     *         in="query",
+     *         description="Prix minimum",
+     *         required=false,
+     *         @OA\Schema(type="number", format="float", example=10.00)
+     *     ),
+     *     @OA\Parameter(
+     *         name="max_price", 
+     *         in="query",
+     *         description="Prix maximum",
+     *         required=false,
+     *         @OA\Schema(type="number", format="float", example=50.00)
+     *     ),
+     *     @OA\Parameter(
+     *         name="sort",
+     *         in="query",
+     *         description="Champ de tri",
+     *         required=false,
+     *         @OA\Schema(type="string", enum={"title", "price", "publication_date", "author_name", "created_at"})
+     *     ),
+     *     @OA\Parameter(
+     *         name="direction",
+     *         in="query",
+     *         description="Direction du tri",
+     *         required=false,
+     *         @OA\Schema(type="string", enum={"asc", "desc"}, default="asc")
+     *     ),
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         description="Éléments par page",
+     *         required=false,
+     *         @OA\Schema(type="integer", minimum=1, maximum=100, default=15)
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Liste des livres",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", type="array", @OA\Items(ref="#/components/schemas/Book")),
+     *             @OA\Property(property="links", type="object"),
+     *             @OA\Property(property="meta", type="object")
+     *         )
+     *     )
+     * )
      */
     public function index(Request $request): AnonymousResourceCollection
     {
