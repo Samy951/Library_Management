@@ -101,7 +101,7 @@
                 </h1>
                 
                 <!-- Subtitle -->
-                <p class="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
+                <p class="text-xl md:text-2xl text-white mb-12 max-w-3xl mx-auto leading-relaxed">
                     Solution moderne avec API REST complète. Gérez vos livres et auteurs facilement avec une interface intuitive et sécurisée.
                 </p>
                 
@@ -153,7 +153,7 @@
                     <!-- Feature 1 -->
                     <div class="card-hover bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 p-8 rounded-3xl border border-blue-200 dark:border-blue-800">
                         <div class="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-8 h-8 text-white rounded-2xl" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.168 18.477 18.582 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                             </svg>
                         </div>
@@ -250,7 +250,7 @@
                         <ul class="space-y-4 mb-8">
                             <li class="flex items-center">
                                 <div class="w-2 h-2 bg-green-500 rounded-full mr-4"></div>
-                                <span class="text-gray-700 dark:text-gray-300">Endpoints CRUD complets</span>
+                                <span class="text-gray-700 dark:text-gray-300 pl-2">Endpoints CRUD complets</span>
                             </li>
                             <li class="flex items-center">
                                 <div class="w-2 h-2 bg-green-500 rounded-full mr-4"></div>
@@ -268,12 +268,9 @@
                         <div class="flex flex-col sm:flex-row gap-4">
                             <a href="/api/documentation" class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors">
                                 <svg class="mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
                                 </svg>
-                                Voir la documentation
-                            </a>
-                            <a href="/api/documentation" class="inline-flex items-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                                Tester l'API
+                                Documentation interactive
                             </a>
                         </div>
                     </div>
