@@ -1,6 +1,6 @@
 # 📚 Library Management System
 
-Système de gestion de bibliothèque développé avec Laravel 12 et Livewire. Application complète avec API REST, interface web moderne et documentation interactive.
+Système de gestion de bibliothèque développé avec Laravel 12 et PHP 8.2+. Application complète avec API REST, interface web moderne et documentation interactive.
 
 ## 🚀 Fonctionnalités
 
@@ -12,7 +12,7 @@ Système de gestion de bibliothèque développé avec Laravel 12 et Livewire. Ap
 - **Recherche et filtrage avancés** (nom d'auteur, titre, prix, date)
 - **Pagination et tri** sur tous les endpoints
 - **Relations Eloquent** optimisées (One-to-Many)
-- **Tests complets** (46 tests couvrant API et sécurité)
+- **Tests complets** (66 tests couvrant API et sécurité)
 
 ### 🎨 Frontend & Interface
 - **Interface web moderne** avec Tailwind CSS et Alpine.js
@@ -79,10 +79,11 @@ php artisan test --filter="AuthorApiTest|BookApiTest"
 php artisan test --coverage
 ```
 
-**Couverture actuelle** : 46 tests passants
+**Couverture actuelle** : 66 tests passants
 - 16 tests AuthorApiTest (CRUD, validation, recherche, règles métier)
 - 20 tests BookApiTest (CRUD, validation, filtres, tri, pagination)
 - 10 tests ApiSecurityTest (authentification, autorisation)
+- 20 tests Auth (authentification Laravel Breeze)
 
 ## 📋 Endpoints API principaux
 
@@ -122,8 +123,8 @@ curl -X POST "http://localhost:8000/api/authors" \
 ## 🏗️ Architecture
 
 ### Stack technique
-- **Backend** : Laravel 12, PHP 8.4
-- **Frontend** : Livewire 3, Alpine.js, Tailwind CSS
+- **Backend** : Laravel 12, PHP 8.2+
+- **Frontend** : Blade, Tailwind CSS, Vanilla JavaScript
 - **Base de données** : SQLite
 - **Documentation** : Swagger/OpenAPI (l5-swagger)
 - **Tests** : PHPUnit, Feature Tests
@@ -197,8 +198,8 @@ Auteurs inclus : Victor Hugo, Gustave Flaubert, Marcel Proust, Albert Camus, Sim
 ✅ **Architecture Laravel** - Utilisation des bonnes pratiques  
 ✅ **Persistence SQLite** - Base de données intégrée  
 ✅ **API REST documentée** - Swagger/OpenAPI complet  
-✅ **Frontend interactif** - Livewire + Alpine.js  
-✅ **Tests complets** - 36 tests unitaires et d'intégration  
+✅ **Frontend moderne** - Interface responsive avec Tailwind CSS  
+✅ **Tests complets** - 66 tests unitaires et d'intégration  
 ✅ **Documentation** - API et code documentés  
 ✅ **Modélisation** - Relations One-to-Many correctes  
 ✅ **Validation** - Règles métier et validation des données  
