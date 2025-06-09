@@ -151,17 +151,17 @@
                 <!-- Features Grid -->
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Feature 1 -->
-                    <div class="card-hover bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 p-8 rounded-3xl border border-blue-200 dark:border-blue-800">
+                    <div class="card-hover bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 p-8 pb-10 rounded-3xl border border-blue-200 dark:border-blue-800">
                         <div class="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center mb-6">
                             <svg class="w-8 h-8 text-white rounded-2xl" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.168 18.477 18.582 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Gestion des Livres</h3>
-                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 px-2">Gestion des Livres</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6 px-2 leading-relaxed">
                             CRUD complet avec recherche, tri et pagination. Validation des données et gestion des relations auteur-livre.
                         </p>
-                        <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-1">
+                        <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-2 px-2 mb-4">
                             <li>• Ajout, modification, suppression</li>
                             <li>• Recherche avancée</li>
                             <li>• Gestion des prix et dates</li>
@@ -169,17 +169,17 @@
                     </div>
 
                     <!-- Feature 2 -->
-                    <div class="card-hover bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20 p-8 rounded-3xl border border-green-200 dark:border-green-800">
+                    <div class="card-hover bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20 p-8 pb-10 rounded-3xl border border-green-200 dark:border-green-800">
                         <div class="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center mb-6">
                             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Gestion des Auteurs</h3>
-                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 px-2">Gestion des Auteurs</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6 px-2 leading-relaxed">
                             Gestion complète des auteurs avec relations vers leurs livres. Règles métier intelligentes et validation.
                         </p>
-                        <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-1">
+                        <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-2 px-2 mb-4">
                             <li>• Profils complets</li>
                             <li>• Relations avec livres</li>
                             <li>• Statistiques auteur</li>
@@ -187,17 +187,17 @@
                     </div>
 
                     <!-- Feature 3 -->
-                    <div class="card-hover bg-gradient-to-br from-purple-50 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/20 p-8 rounded-3xl border border-purple-200 dark:border-purple-800">
+                    <div class="card-hover bg-gradient-to-br from-purple-50 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/20 p-8 pb-10 rounded-3xl border border-purple-200 dark:border-purple-800">
                         <div class="w-16 h-16 bg-purple-500 rounded-2xl flex items-center justify-center mb-6">
                             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">API REST Documentée</h3>
-                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 px-2">API REST Documentée</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6 px-2 leading-relaxed">
                             API complète avec documentation Swagger/OpenAPI interactive. Tests automatisés et sécurité intégrée.
                         </p>
-                        <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-1">
+                        <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-2 px-2 mb-4">
                             <li>• Documentation interactive</li>
                             <li>• Authentification sécurisée</li>
                             <li>• Tests end-to-end</li>
