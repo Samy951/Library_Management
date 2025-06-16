@@ -10,7 +10,7 @@
     },
     "servers": [
         {
-            "url": "http://my-default-host.com",
+            "url": "http://localhost:8000",
             "description": "API Server"
         }
     ],
@@ -474,6 +474,247 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Créer un nouveau livre",
+                "description": "Crée un nouveau livre avec titre, prix, date et auteur",
+                "operationId": "72f82e1cd6f08112323f87053277ca99",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "price",
+                                    "publication_date",
+                                    "author_id"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Les Misérables"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "maximum": 999.99,
+                                        "minimum": 0,
+                                        "example": 25.99
+                                    },
+                                    "publication_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1862-01-01"
+                                    },
+                                    "author_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Livre créé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Book"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            }
+        },
+        "/api/books/{id}": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Afficher un livre",
+                "description": "Récupère les détails d'un livre spécifique",
+                "operationId": "123856ec83e3466396b979a43eb1a15f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du livre",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Détails du livre",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Book"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Livre non trouvé"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Mettre à jour un livre",
+                "description": "Met à jour les informations d'un livre existant",
+                "operationId": "2fc15aa806ac989f4d2b201b5952714d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du livre",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Les Misérables"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "maximum": 999.99,
+                                        "minimum": 0,
+                                        "example": 25.99
+                                    },
+                                    "publication_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1862-01-01"
+                                    },
+                                    "author_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Livre mis à jour avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Book"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Livre non trouvé"
+                    },
+                    "422": {
+                        "description": "Erreur de validation"
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Supprimer un livre",
+                "description": "Supprime un livre de la bibliothèque",
+                "operationId": "eda12c526d0ccacaecea5f3d8f15d6df",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du livre",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Livre supprimé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Livre supprimé avec succès."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Livre non trouvé"
+                    }
+                },
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ]
             }
         }
     },

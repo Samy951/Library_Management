@@ -17,7 +17,35 @@ Route::get('authors/{author}', [AuthorController::class, 'show']);
 Route::get('books', [BookController::class, 'index']);
 Route::get('books/{book}', [BookController::class, 'show']);
 
-// Additional read-only route
+/**
+ * @OA\Get(
+ *     path="/api/authors/{id}/books",
+ *     tags={"Authors"},
+ *     summary="Livres d'un auteur",
+ *     description="Récupère tous les livres d'un auteur spécifique",
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         description="ID de l'auteur",
+ *         required=true,
+ *         @OA\Schema(type="integer", example=1)
+ *     ),
+ *     @OA\Parameter(
+ *         name="per_page",
+ *         in="query",
+ *         description="Éléments par page",
+ *         required=false,
+ *         @OA\Schema(type="integer", minimum=1, maximum=100, default=15)
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Liste des livres de l'auteur",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="data", type="array", @OA\Items(ref="#/components/schemas/Book"))
+ *         )
+ *     )
+ * )
+ */
 Route::get('authors/{author}/books', function (Request $request, int $authorId) {
     $books = \App\Models\Book::where('author_id', $authorId)
         ->with('author')

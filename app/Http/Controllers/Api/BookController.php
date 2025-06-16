@@ -123,7 +123,31 @@ class BookController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/books",
+     *     tags={"Books"},
+     *     summary="Créer un nouveau livre",
+     *     description="Crée un nouveau livre avec titre, prix, date et auteur",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"title", "price", "publication_date", "author_id"},
+     *             @OA\Property(property="title", type="string", maxLength=255, example="Les Misérables"),
+     *             @OA\Property(property="price", type="number", format="float", minimum=0, maximum=999.99, example=25.99),
+     *             @OA\Property(property="publication_date", type="string", format="date", example="1862-01-01"),
+     *             @OA\Property(property="author_id", type="integer", example=1)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Livre créé avec succès",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/Book")
+     *         )
+     *     ),
+     *     @OA\Response(response=422, description="Erreur de validation"),
+     *     security={{"auth":{}}}
+     * )
      */
     public function store(StoreBookRequest $request): BookResource
     {
@@ -133,7 +157,27 @@ class BookController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/books/{id}",
+     *     tags={"Books"},
+     *     summary="Afficher un livre",
+     *     description="Récupère les détails d'un livre spécifique",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID du livre",
+     *         required=true,
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Détails du livre",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/Book")
+     *         )
+     *     ),
+     *     @OA\Response(response=404, description="Livre non trouvé")
+     * )
      */
     public function show(Book $book): BookResource
     {
@@ -141,7 +185,38 @@ class BookController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/api/books/{id}",
+     *     tags={"Books"},
+     *     summary="Mettre à jour un livre",
+     *     description="Met à jour les informations d'un livre existant",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID du livre",
+     *         required=true,
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="title", type="string", maxLength=255, example="Les Misérables"),
+     *             @OA\Property(property="price", type="number", format="float", minimum=0, maximum=999.99, example=25.99),
+     *             @OA\Property(property="publication_date", type="string", format="date", example="1862-01-01"),
+     *             @OA\Property(property="author_id", type="integer", example=1)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Livre mis à jour avec succès",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="data", ref="#/components/schemas/Book")
+     *         )
+     *     ),
+     *     @OA\Response(response=404, description="Livre non trouvé"),
+     *     @OA\Response(response=422, description="Erreur de validation"),
+     *     security={{"auth":{}}}
+     * )
      */
     public function update(UpdateBookRequest $request, Book $book): BookResource
     {
@@ -151,7 +226,28 @@ class BookController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/api/books/{id}",
+     *     tags={"Books"},
+     *     summary="Supprimer un livre",
+     *     description="Supprime un livre de la bibliothèque",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID du livre",
+     *         required=true,
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Livre supprimé avec succès",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Livre supprimé avec succès.")
+     *         )
+     *     ),
+     *     @OA\Response(response=404, description="Livre non trouvé"),
+     *     security={{"auth":{}}}
+     * )
      */
     public function destroy(Book $book): JsonResponse
     {
